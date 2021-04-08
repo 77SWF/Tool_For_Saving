@@ -1,0 +1,12 @@
+<!--pages/index/index.wxml-->
+<view class="index-container">
+    <import src="template/template.wxml" />
+    <template is="userInfoTemplate" data="{{ user: userData, percent: percent }}"/>
+    <view class="btn-todolist" catch:tap="goTask">
+        <text class="btn-todolist-text">任务列表</text>
+    </view>
+    <view class="btn-wantstore" catch:tap="goStore">
+        <text class="btn-wantstore-text">欲望商店</text>
+    </view>
+    <view class=""></view>
+</view>

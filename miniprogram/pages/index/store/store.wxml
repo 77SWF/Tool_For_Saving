@@ -1,0 +1,38 @@
+<import src="../template/template.wxml" />
+<import src="./store-item/store-item.wxml" />
+
+<view class="store-container">
+    <template is="userInfoTemplate" data="{{ user:userData, percent: percent }}" />
+</view>
+
+<view class="item">
+    <block wx:for="{{desireData}}" wx:key="{{item._id}}">
+        <view class="items" bindtap="buyDesire" data-id="{{ item._id }}">
+            <template is="store-item" data="{{item, delBtnHeight }}"></template>
+        </view>
+    </block>
+</view>
+
+<movable-area style="height:82%; width:1rpx; " class="move-area">
+    <movable-view direction="vertical" class="set-button" x="0" y="500" out-of-bounds="true" damping="20" bindtap="clickButton" inertia="true">+</movable-view>
+</movable-area>
+
+
+<view class="modalDlg" wx:if="{{showModal}}">
+    <view class='close-mask' bindtap="close_mask">×</view>
+    <view class="content">
+        <input class='inputtext' type='text' placeholder='请输入商品名' value='{{taskname}}' bindinput="getTaskName"></input>
+        <input class='inputtext' type='text' placeholder='请输入次数（缺省默认为无限次）' value='{{taskcount}}' bindinput="getTaskCount"></input>
+
+        <view class="picker-difficulty">
+            <picker bindchange="bindPickerChange" value="{{index}}" range="{{difficulty}}">
+                <view class="picker">{{difficulty[index]}}</view>
+            </picker>
+        </view>
+
+
+    </view>
+    <button class='save' bindtap='addDesire'>保存</button>
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>

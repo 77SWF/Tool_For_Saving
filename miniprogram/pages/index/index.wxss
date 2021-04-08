@@ -1,0 +1,19 @@
+/* pages/index/index.wxss */
+.index-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.index-container .btn-todolist, .index-container .btn-wantstore {
+    width: 90%;
+    height: 300rpx;
+    background: #3F51B5;
+    border-radius: 10rpx;
+    margin: 50rpx auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 50rpx;
+    box-shadow: 4px 4px 7px gainsboro;
+}

@@ -1,0 +1,114 @@
+.store-item {
+    display: flex;
+    flex-direction: row;
+    margin-left: 30rpx;
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+}
+
+.left {
+    width: 78%;
+}
+
+.item-expense {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20rpx;
+}
+
+.item-info {
+    display: flex;
+    direction: row;
+    justify-content: left;
+}
+
+.item-type {
+    width: 80rpx;
+    height: 45rpx;
+    border-radius: 5px;
+    border: 1px solid ghostwhite;
+    box-shadow: 2px 2px 5px ghostwhite;
+    margin-right: 5rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.type-name {
+    color: black;
+    font-size: 24rpx;
+    text-align: center;
+    line-height: 24rpx;
+}
+
+.item-name {
+    font-size: 28rpx;
+}
+
+.item-time {
+    font-size: 26rpx;
+    color: gray;
+}
+
+.item-expense .item-money {
+    color: #4FAA39;
+    font-size: 26rpx;
+}
+
+.item-easy {
+    background: rgba(234, 234, 255, 0.9);
+}
+
+.item-normal {
+    background: rgba(199, 199, 255, 0.7);
+}
+
+.item-medium {
+    background: rgba(134, 134, 255, 0.7);
+}
+
+.item-hard {
+    background: rgba(34, 34, 255, 0.6);
+}
+
+.store-item-wrap {
+    position: relative;
+}
+
+.store-item-wrap .clear {
+    content: "";
+    display: block;
+    clear: both;
+    background: white;
+}
+
+.store-item-wrap .wrap {
+    position: absolute;
+    width: 100%;
+    background: white;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    transition: left 0.2s ease-in-out;
+}
+
+.store-item-wrap .item-del {
+    width: 120rpx;
+    background: #CC3333;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.store-item-wrap .item-icon {
+    width: 50rpx;
+    height: 50rpx;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,72 @@
+<template name="store-item">
+    <view class="store-item-wrap">
+        <view class="wrap" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-id="{{ item._id }}" style="{{ item.desireStyle ? item.desireStyle : '' }}" >
+            <view class="store-item">
+
+                <view class="left">
+
+                    <view class="item-info">
+                        <text class="item-name">{{item.title}}</text>
+                    </view>
+
+                    <view class="item-time">
+                        <text>{{item.get}}/<text wx:if="{{item.allGet === -1}}">∞</text>
+                        <text wx:else>{{item.allGet}}</text></text>
+                    </view>
+
+                </view>
+
+                <view class="item-expense">
+
+                    <block wx:if="{{item.grade === 0}}">
+                        <view class="item-type type-name item-easy">
+                            <text>简单</text>
+                        </view>
+                        <view class="item-money">
+                            <text>-2</text>
+                        </view>
+                    </block>
+
+                    <block wx:if="{{item.grade === 1}}">
+                        <view class="item-type type-name item-normal">
+                            <text>普通</text>
+                        </view>
+
+                        <view class="item-money">
+                            <text>-4</text>
+                        </view>
+                    </block>
+
+
+                    <block wx:if="{{item.grade === 2}}">
+                        <view class="item-type type-name item-medium">
+                            <text>中等</text>
+                        </view>
+
+                        <view class="item-money">
+                            <text>-9</text>
+                        </view>
+                    </block>
+
+
+                    <block wx:if="{{item.grade === 3}}">
+                        <view class="item-type type-name item-hard">
+                            <text>困难</text>
+                        </view>
+
+                        <view class="item-money">
+                            <text>-16</text>
+                        </view>
+                    </block>
+
+                </view>
+
+
+            </view>
+        </view>
+        <view data-id="{{ item._id }}" catch:tap="deleteDesire" class="item-del" style="height: {{ delBtnHeight }}px">
+            <image class="item-icon" src="../../images/delete.png" />
+        </view>
+        <view class="clear" style="height: {{ delBtnHeight }}px"></view>
+    </view>
+</template>

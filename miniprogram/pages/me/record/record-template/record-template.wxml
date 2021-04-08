@@ -1,0 +1,10 @@
+<template name="record-template">
+    <view wx:if="{{ incomeFlag && item.type === 0 || payFlag && item.type === 1 }}" class="record-item">
+        <view class="item-describe">
+            <text class="item-title">{{ item.title }}</text>
+            <text class="item-time">{{ item.timeformat }}</text>
+        </view>
+        <text wx:if="{{ item.type === 0 }}" class="item-money item-money--income">+{{ item.money }}</text>
+        <text wx:else class="item-money item-money--pay">-{{ item.money }}</text>
+    </view>
+</template>

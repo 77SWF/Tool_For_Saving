@@ -1,0 +1,7 @@
+<template name="featureItem">
+    <view class="featureItem" catch:tap="changePage" data-pagename="{{ item }}">
+        <text>{{item}}</text>
+        <view class="rarrow">
+        </view>
+    </view>
+</template>

@@ -1,0 +1,40 @@
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 20rpx 20rpx;
+}
+
+.user-info .user-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 2px 2px 3px gainsboro;
+    
+}
+
+.user-info .user-level-money {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20rpx;
+    flex: 1;
+}
+
+.user-info .user-level-money .user-level {
+    font-size: 32rpx;
+}
+
+.user-info .user-level-money .user-money {
+    font-size: 28rpx;
+}
+
+.user-info .user-exp-text {
+    font-size: 28rpx;
+    margin-right: 30rpx;
+}
+
+.user-info .user-exp-progress {
+    width: 50%;
+}

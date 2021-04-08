@@ -1,0 +1,7 @@
+<view class="container">
+    <view class="head">
+        <image class="img" src="../../images/cover.png"></image>
+    </view>
+    <text>欲望商店 V1.1</text>
+    <text class="text-info">欲望商店是由深圳大学的菜鸡冲冲冲团队设计完成。这是一款与众不同的效率工具，结合游戏机制，促使用户更主动地做长收益半衰期的事情，从而提高学习工作效率，养成良好的学习习惯。</text>
+</view>

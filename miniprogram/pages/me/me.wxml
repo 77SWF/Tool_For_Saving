@@ -1,0 +1,44 @@
+<import src="./feature-template/feature-template.wxml" />
+
+<view class="top common-border">
+    <!-- 获取到用户的头像 -->
+    <view class="head">
+        <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <!-- 获取到用户的昵称 -->
+    <view class="text">
+        <open-data type="userNickName" lang="zh_CN"></open-data>
+    </view>
+
+
+</view>
+
+<view class="data common-border">
+    <view class="data-level" catchtap='getExp'>
+        <image src="../images/exp-color.png" />
+        <text>LV{{userData.level}}</text>
+    </view>
+    <view class="bar"></view>
+    <view class="data-money">
+        <image src="../images/money-color.png" />
+        <text>{{userData.money}}</text>
+    </view>
+</view>
+
+<view class="other common-border">
+    <block wx:for="{{featureItemData}}" wx:key="{{item}}">
+        <template is="featureItem" data="{{item}}"></template>
+    </block>
+</view>
+
+
+<view class="modalDlg" wx:if="{{showModal}}">
+    <view class='close-mask' bindtap="close_mask">×</view>
+    <view class="content">
+        <view class="item">当前等级为：{{userData.level}} 当前经验为：{{userData.exp}}</view>
+        <view class="item">升级所需经验为：{{needExp}}</view>
+        <view class="item">距离<text class="strong">LV{{userData.level + 1}}</text>还差<text class="strong">{{needExp - userData.exp}}</text>经验哦，请继续努力~</view>
+    </view>
+</view>
+
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>

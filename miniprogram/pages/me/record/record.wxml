@@ -1,0 +1,18 @@
+<import src="./record-template/record-template.wxml"></import>
+<view class="record-container">
+    <view class="record-head">
+        <view class="record-type-selector">
+            <picker bindchange="bindTypePickerChange" mode="selector" value="{{ recordTypeIndex }}" range="{{ recordTypeArr }}">
+                <view class="picker">
+                    {{ recordTypeArr[recordTypeIndex] }}
+                </view>
+                <view class="selector-arrow"></view>
+            </picker>
+        </view>
+    </view>
+    <view class="record">
+        <block wx:for="{{ recordData }}" wx:key="{{ item.optid }}">
+            <template is="record-template" data="{{ item, incomeFlag, payFlag }}" />
+        </block>
+    </view>
+</view>
