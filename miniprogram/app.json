@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/buy/buy",
+    "pages/index/desirestore/desirestore",
     "pages/login/login",
     "pages/me/me",
     "pages/me/record/record",
