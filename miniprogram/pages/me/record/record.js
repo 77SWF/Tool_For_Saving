@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    recordTypeArr: ['全部流水账类型', '收入', '支出'],
+    recordTypeArr: ['全部积分账单', '收入', '支出'],
     recordTypeIndex: 0,
     incomeFlag: true,
     payFlag: true

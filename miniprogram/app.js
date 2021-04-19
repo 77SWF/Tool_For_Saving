@@ -30,7 +30,7 @@ Component = patchComponent(Component)
 
 App({
   globalData: {
-    levelExp: [0, 10, 30, 50, 80, 100]
+    levelExp: [0, 10, 30, 50, 80, 100]//升级index级需要的经验数
   },
   onLaunch: function () {
     if (!wx.cloud) {
@@ -77,7 +77,6 @@ App({
             this.getUserDataCallback()
           }
           this.onQuery('taskData')
-          this.onQuery('desireData')
           this.onQuery('recordData')
         }
         else {
@@ -163,22 +162,7 @@ App({
       })
     })
 
-    // 更新desireData
-    var desireData = wx.getStorageSync('desireData')
-    desireData.forEach(item => {
-      db.collection('desireData').doc(item._id).update({
-        data: {
-          'get': item['get']
-        },
-        success: res => {
-          console.log('[数据库] [更新记录] 成功 ' + res)
-        },
-        fail: err => {
-          console.log('[数据库] [更新记录] 失败 ' + err)
-        }
-      })
-    })
-
+  
     // 上传recordData
     var recordData = wx.getStorageSync('recordData')
     recordData.forEach(item => {

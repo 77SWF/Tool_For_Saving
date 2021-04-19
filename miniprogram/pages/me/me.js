@@ -5,7 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        featureItemData: ["流水账", "使用方法", "关于我们"]
+        featureItemData: ["积分账单", "使用方法", "关于我们"]
     },
 
     /**
@@ -19,7 +19,7 @@ Page({
 
     changePage: function(e) {
         var pagename = e.currentTarget.dataset.pagename
-        if (pagename === '流水账') {
+        if (pagename === '积分账单') {
             wx.navigateTo({
                 url: './record/record'
             })

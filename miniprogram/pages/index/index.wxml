@@ -1,12 +1,96 @@
 <!--pages/index/index.wxml-->
-<view class="index-container">
-    <import src="template/template.wxml" />
-    <template is="userInfoTemplate" data="{{ user: userData, percent: percent }}"/>
-    <view class="btn-todolist" catch:tap="goTask">
-        <text class="btn-todolist-text">任务列表</text>
+<import src="template/template.wxml"></import>
+<view class="task-container">
+    <template is="userInfoTemplate" data="{{ user:userData , percent: percent}}" />
+    <view class="navbar">
+        <!-- 显示tab导航栏：任务类型 -->
+        <block wx:for="{{ navigation }}" wx:for-item="item" wx:key="typeid">
+            <text class="navbar-item navbar-item-selected" wx:if="{{ currentbar == item.typeid }}" data-typeid="{{ item.typeid }}" catch:tap="changeTab">{{ item.title }}</text>
+            <text class="navbar-item" wx:else data-typeid="{{ item.typeid }}" catch:tap="changeTab">{{ item.title }}</text>
+        </block>
     </view>
-    <view class="btn-wantstore" catch:tap="goStore">
-        <text class="btn-wantstore-text">欲望商店</text>
+    <!-- 显示任务 -->
+    <view class="task">
+        <block wx:for="{{ taskData }}" wx:key="_id">
+            <block wx:if="{{ item.typeid === currentbar && !item.status.finished && !item.status.expired }}">
+                <!-- 传：task列表的每项 -->
+                <template is="taskTemplate" data="{{ item, reward: reward, index: index, delBtnHeight }}"/>
+            </block>
+        </block>
     </view>
-    <view class=""></view>
+    <!-- 显示过期任务 -->
+    <view wx:if="{{ expiredNum }}" class="task-expired">
+        <view class="expired-bar">
+            <text class="bar-text">已过期</text>
+        </view>
+        <view class="task-todaychecked-container">
+            <block wx:for="{{ taskData }}" wx:key="{{ item._id }}">
+                <block wx:if="{{ item.typeid === currentbar && !item.status.finished && item.status.expired }}">
+                    <template is="taskTemplate" data="{{ item, reward: reward, index: index, delBtnHeight }}" />
+                </block>
+            </block>
+        </view>
+    </view>
+    <!-- 显示已完成任务 -->
+    <view wx:if="{{ checkedNum }}" class="task-checked">
+        <view class="checked-bar" catch:tap="checkedShowChange">
+            <text class="bar-text">已完成</text>
+        </view>
+        <view hidden="{{ checkedShow }}" class="task-checked-container">
+            <block wx:for="{{ taskData }}" wx:key="_id">
+                <block wx:if="{{ item.typeid === currentbar && item.status.finished }}">
+                    <template is="taskTemplate" data="{{ item, reward: reward, index: index }}" />
+                </block>
+            </block>
+        </view>
+    </view>
+    <!-- 添加任务：浮动 -->
+    <movable-area style="height:82%; width:1rpx; " class="move-area">
+        <movable-view direction="vertical" class="set-button" x="0" y="500" out-of-bounds="true" damping="20" bindtap="clickButton" inertia="true">+</movable-view>
+    </movable-area>
+    <!-- 添加任务：弹框，点击+后showModal=true，显示 -->
+    <view class="modalDlg" wx:if="{{showModal}}">
+        <view class='close-mask' bindtap="close_mask">×</view>
+        <view class="content">
+            <input class='inputtext' type='text' placeholder='请输入物品名' value='{{addTaskData.taskname}}' bindinput="getTaskName"></input>
+            
+            <!-- 选择任务类型 -->
+            <view class="picker-wrapper">
+                <picker bindchange="bindPickerChangeType" value="{{addTaskData.indexType}}" range="{{addTaskData.type}}">
+                    <view class="picker">{{addTaskData.type[addTaskData.indexType]}}</view>
+                </picker>
+            </view>
+
+            <input class='inputtext' disabled="{{ false }}" type='text' placeholder='请输入期待使用次数(默认计数)' value='{{addTaskData.taskcount}}' bindinput="getTaskCount"></input>
+
+            
+            <!-- 选择任务难度 -->
+            <!--
+            <view class="picker-wrapper">
+                <picker bindchange="bindPickerChangeDiff" value="{{addTaskData.indexDiff}}" range="{{addTaskData.difficulty}}">
+                    <view class="picker">{{addTaskData.difficulty[addTaskData.indexDiff]}}</view>
+                </picker>
+            </view>
+            -->
+
+            <!-- 花费金额 -->
+            <input class='inputtext' disabled="{{ false }}" type='text' placeholder='花费金额' value='{{addTaskData.indexDiff}}' bindinput="bindPickerChangeDiff"></input>
+            
+
+            <!-- 任务截止时间 -->
+            <view class="picker-wrapper">
+                <picker mode="date" value="{{addTaskData.due}}" disabled="{{ datepickerDis }}" start="{{today}}" end="9999-12-31" bindchange="bindDateChange">
+                    <view class="picker">{{addTaskData.due}}</view>
+                </picker>
+            </view>
+
+            <view>
+            <button class='save' type="primary" bindtap="takePhoto">拍照</button>
+            </view>
+
+
+        </view>
+        <button class='save' bindtap='addTask'>保存</button>
+    </view>
+    <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 </view>

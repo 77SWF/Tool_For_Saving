@@ -5,14 +5,12 @@
     "pages/me/me",
     "pages/me/record/record",
     "pages/me/aboutus/aboutus",
-    "pages/me/instruction/instruction",
-    "pages/index/task/task",
-    "pages/index/store/store"
+    "pages/me/instruction/instruction"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "欲望商店"
+    "navigationBarTitleText": "快住手！"
   },
   "tabBar": {
     "color": "#282828",

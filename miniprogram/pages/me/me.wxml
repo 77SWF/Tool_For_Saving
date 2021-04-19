@@ -26,7 +26,7 @@
 </view>
 
 <view class="other common-border">
-    <block wx:for="{{featureItemData}}" wx:key="{{item}}">
+    <block wx:for="{{featureItemData}}" wx:key="item">
         <template is="featureItem" data="{{item}}"></template>
     </block>
 </view>

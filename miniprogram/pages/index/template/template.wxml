@@ -13,32 +13,42 @@
 </template>
 
 <template name="taskTemplate">
+    <!-- 未完成 -->
     <block wx:if="{{ !item.status.finished }}">
-        哈哈哈！
         <view class="task-item-wrap">
             <view class="wrap" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-id="{{ item._id }}" style="{{ item.taskStyle ? item.taskStyle : '' }}">
                 <view class="task-item {{ item.typeid === 0 ? 'task-item--daily' : ''}} {{ item.status.finished ? 'task-item--finished' : '' }}">
                     <checkbox disabled="{{ item.status.finished || item.status.checked }}" class="item-checkbox {{ item.status.checked ? 'item-checkbox--checked' : '' }}" checked="{{ item.status.checked || item.status.finished }}" data-taskindex="{{ index }}" catch:tap="checkboxChange" />
                     <view class="item-describe">
                         <text class="item-title">{{ item.title }}</text>
+                        <!-- 次数 -->
                         <text wx:if="{{ item.typeid === 0 }}" class="item-count">{{ item.checkcount }}/{{ item.count === 0 ? '∞' : item.count }}</text>
+                        <!-- 截止日期？？？ -->
                         <text class="item-time" wx:if="{{ item.typeid !== 0 && !item.status.expired }}"> {{item.timestr}} </text>
                         <text class="item-expired" wx:elif="{{ item.typeid !== 0 && item.status.expired }}"> {{item.expiredstr}} </text>
                     </view>
+                    <!--
                     <text wx:if="{{ item.difficulty === 0}}" class="item-difficulty item-difficulty--easy">简单</text>
                     <text wx:elif="{{ item.difficulty === 1}}" class="item-difficulty item-difficulty--normal">普通</text>
                     <text wx:elif="{{ item.difficulty === 2}}" class="item-difficulty item-difficulty--medium">中等</text>
                     <text wx:else class="item-difficulty item-difficulty--hard">困难</text>
-                    <text wx:if="{{ item.time === 'short' }}" class="item-reward">短期</text>
-                    <text wx:else class="item-reward">+{{ reward[item.difficulty] }}</text>
+                    -->
+                    <!-- 显示价格 -->
+                    <text class="item-difficulty item-difficulty--easy">-¥{{ item.difficulty }}</text>
+
+                    
+                    <!-- 显示加分（按价格吧） -->
+                    <text class="item-reward">+{{ item.score }}</text>
+                    
                 </view>
             </view>
             <view data-id="{{ item._id }}" catch:tap="deleteTask" class="item-del" style="height: {{ delBtnHeight }}px">
-                <image class="item-icon" src="../../images/delete.png" />
+                <image class="item-icon" src="../images/delete.png" />
             </view>
             <view class="clear" style="height: {{delBtnHeight}}px"></view>
         </view>
     </block>
+    <!-- 已完成 -->
     <block wx:else>
         <view class="task-item {{ item.typeid === 0 ? 'task-item--daily' : ''}} {{ item.status.finished ? 'task-item--finished' : '' }}">
             <checkbox disabled="{{ item.status.finished || item.status.checked }}" class="item-checkbox {{ item.status.checked ? 'item-checkbox--checked' : '' }}" checked="{{ item.status.checked || item.status.finished }}" data-taskindex="{{ index }}" catch:tap="checkboxChange" />
@@ -48,12 +58,9 @@
                 <text class="item-time" wx:if="{{ item.typeid !== 0 && !item.status.expired }}"> {{item.timestr}} </text>
                 <text class="item-expired" wx:elif="{{ item.typeid !== 0 && item.status.expired }}"> {{item.expiredstr}} </text>
             </view>
-            <text wx:if="{{ item.difficulty === 0}}" class="item-difficulty item-difficulty--easy">简单</text>
-            <text wx:elif="{{ item.difficulty === 1}}" class="item-difficulty item-difficulty--normal">普通</text>
-            <text wx:elif="{{ item.difficulty === 2}}" class="item-difficulty item-difficulty--medium">中等</text>
-            <text wx:else class="item-difficulty item-difficulty--hard">困难</text>
-            <text wx:if="{{ item.time === 'short' }}" class="item-reward">短期</text>
-            <text wx:else class="item-reward">+{{ reward[item.difficulty] }}</text>
+            <!-- 显示价格 -->
+            <text class="item-difficulty item-difficulty--easy">-¥{{ item.difficulty }}</text>
+            <text class="item-reward">+{{ item.score }}</text>
         </view>
     </block>
 </template>

@@ -1,3 +1,4 @@
+//数据库中没有的用户会执行以下注册
 const initTaskData = require('../data/initTaskData.js')
 const app = getApp()
 Page({
@@ -13,9 +14,9 @@ Page({
     const db = wx.cloud.database()
     db.collection('userData').add({
       data: {
-        level: 0,
+        level: 0,//初始0级
         money: 0,
-        exp: 0,
+        exp: 0,//初始0分
         username: app.globalData.userInfo.nickName
       },
       success: res => {
