@@ -27,12 +27,6 @@
                         <text class="item-time" wx:if="{{ item.typeid !== 0 && !item.status.expired }}"> {{item.timestr}} </text>
                         <text class="item-expired" wx:elif="{{ item.typeid !== 0 && item.status.expired }}"> {{item.expiredstr}} </text>
                     </view>
-                    <!--
-                    <text wx:if="{{ item.difficulty === 0}}" class="item-difficulty item-difficulty--easy">简单</text>
-                    <text wx:elif="{{ item.difficulty === 1}}" class="item-difficulty item-difficulty--normal">普通</text>
-                    <text wx:elif="{{ item.difficulty === 2}}" class="item-difficulty item-difficulty--medium">中等</text>
-                    <text wx:else class="item-difficulty item-difficulty--hard">困难</text>
-                    -->
                     <!-- 显示价格 -->
                     <text class="item-difficulty item-difficulty--easy">-¥{{ item.difficulty }}</text>
 
@@ -43,7 +37,7 @@
                 </view>
             </view>
             <view data-id="{{ item._id }}" catch:tap="deleteTask" class="item-del" style="height: {{ delBtnHeight }}px">
-                <image class="item-icon" src="../images/delete.png" />
+                <image class="item-icon" src="../../images/delete.png" />
             </view>
             <view class="clear" style="height: {{delBtnHeight}}px"></view>
         </view>

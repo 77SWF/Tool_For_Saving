@@ -8,6 +8,7 @@
 <view class="item">
     <block wx:for="{{desireData}}" wx:key="_id">
         <view class="items" bindtap="buyDesire" data-id="{{ item._id }}">
+            <!--欲望列表模板-->
             <template is="store-item" data="{{item, delBtnHeight }}"></template>
         </view>
     </block>
@@ -22,13 +23,18 @@
     <view class='close-mask' bindtap="close_mask">×</view>
     <view class="content">
         <input class='inputtext' type='text' placeholder='请输入欲望商品名' value='{{taskname}}' bindinput="getTaskName"></input>
+        <!--
         <input class='inputtext' type='text' placeholder='请输入次数（缺省默认为无限次）' value='{{taskcount}}' bindinput="getTaskCount"></input>
-
+        
         <view class="picker-difficulty">
             <picker bindchange="bindPickerChange" value="{{index}}" range="{{difficulty}}">
                 <view class="picker">{{difficulty[index]}}</view>
             </picker>
         </view>
+        -->
+
+        <!-- 花费金额 -->
+        <input class='inputtext' disabled="{{ false }}" type='text' placeholder='花费金额' value='{{taskprice}}' bindinput="getTaskPrice"></input>
 
 
     </view>

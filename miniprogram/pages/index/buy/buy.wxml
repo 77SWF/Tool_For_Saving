@@ -24,7 +24,7 @@
             <text class="bar-text">已过期</text>
         </view>
         <view class="task-todaychecked-container">
-            <block wx:for="{{ taskData }}" wx:key="{{ item._id }}">
+            <block wx:for="{{ taskData }}" wx:key="_id">
                 <block wx:if="{{ item.typeid === currentbar && !item.status.finished && item.status.expired }}">
                     <template is="taskTemplate" data="{{ item, reward: reward, index: index, delBtnHeight }}" />
                 </block>
@@ -84,9 +84,11 @@
                 </picker>
             </view>
 
+            <!-- 放弃照片上传
             <view>
             <button class='save' type="primary" bindtap="takePhoto">拍照</button>
             </view>
+            -->
 
 
         </view>

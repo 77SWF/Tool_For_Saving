@@ -9,7 +9,7 @@ Page({
         navigation: [
             {typeid: 0, title: '日用品'},
             {typeid: 1, title: '衣物饰品'},
-            {typeid: 2, title: '其他'}
+            {typeid: 2, title: '学习用品'}
         ],
         currentbar: 0,
         reward: [2, 4, 6, 8],
@@ -32,7 +32,7 @@ Page({
             taskname: '',
             taskcount: '',
             indexType: 0,
-            type: ['请选择物品类型', '日用品', '衣物饰品', '其他'],
+            type: ['请选择物品类型', '日用品', '衣物饰品', '学习用品'],
             indexDiff: '',//添加任务时输入的花费金额
             difficulty: ['请选择任务难度', '简单', '普通', '中等', '困难'],//选择条，删了
             due: '',
@@ -236,7 +236,7 @@ Page({
             taskname: '',
             taskcount: '',
             indexType: 0,
-            type: ['请选择物品类型', '日用品', '衣物饰品', '其他'],
+            type: ['请选择物品类型', '日用品', '衣物饰品', '学习用品'],
             indexDiff: '',
             difficulty: ['请选择任务难度', '简单', '普通', '中等', '困难'],
             due: new Date().Format('yyyy-MM-dd'),
@@ -381,7 +381,7 @@ Page({
         (500 >= data.indexDiff && data.indexDiff > 100)? 4 :
         (1000 >= data.indexDiff && data.indexDiff > 500)? 6 : 8;
 
-        console.log(typeof data.indexDiff)
+        //console.log(typeof data.indexDiff)
 
         // 构造新任务对象，内容为选定的每项的值(有的会变，比如typeid)
         var newtask = {

@@ -5,10 +5,11 @@ Page({
      * 页面的初始数据
      */
     data: {
-        price: [2, 4, 9, 16],
+        score: '',
+
 
         taskname: '',
-        taskcount: '',
+        taskprice: '',
         desireData: [],
 
         difficulty: ['请选择难度', '简单', '普通', '中等', '困难'],
@@ -44,24 +45,21 @@ Page({
 
         let index = self.findItem(desireArray, id)
         let item = self.data.desireData[index]
-        let price = this.data.price[item.grade]
+        let price = item.score
 
         wx.showModal({
             title: '确认',
             content: '确定使用￥' + price + ' 购买 \"' + item.title + '\" 这个欲望吗？',
-            //content: '确定使用￥' + price + ' 购买 \"' +  '\" 这个欲望吗？',
 
             success(res) {
                 if (res.confirm) {
                     if (user.money >= price) {
-
-                        item.get++;
-                        if (item.get >= item.allGet && item.allGet != -1) {
-                            if (index > -1)
-                                desireArray.splice(index, 1);
-                        }
+                        desireArray.splice(index, 1);
+                        //console.log(user.money)
+                        //console.log(price)
 
                         user.money -= price
+                        //console.log(user.money)
 
                         self.setData({
                             desireData: desireArray,
@@ -78,7 +76,7 @@ Page({
                             key: item._id,
                             title: item.title,
                             time: new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                            money: self.data.price[item.grade]
+                            money: self.data.score
                         }
                         var recordData = wx.getStorageSync('recordData')
                         if (recordData) {
@@ -117,13 +115,13 @@ Page({
                         showModal: true,
                         index: 0,
                         taskname: '',
-                        taskcount: '',
+                        taskprice: '',
                     })
                 }
 
                 if (res.tapIndex == 1) {
                     desireArray.sort(function(a, b) {
-                        if (a.grade < b.grade) {
+                        if (a.allGet < b.allGet) { //小到大排序
                             return -1;
                         } else {
                             return 1;
@@ -144,17 +142,12 @@ Page({
         })
     },
 
-    bindPickerChange: function(e) {
-        this.setData({
-            index: e.detail.value //输入难度->数字
-        })
-    },
 
     addDesire() {
         var self = this
         let taskname = self.data.taskname;
-        let taskcount = self.data.taskcount;
-        let grade = self.data.index - 1;
+        let taskprice = self.data.taskprice;
+        let score = self.data.score;
 
         if (taskname.length == 0) {
             wx.showToast({
@@ -164,24 +157,17 @@ Page({
                 icon: 'none'
             })
             return
-        } else if (grade === -1) {
-            wx.showToast({
-                title: '请选择难度',
-                duration: 2000,
-                mask: true,
-                icon: 'none'
-            })
-            return
-        }
+        }   
 
-        if (taskcount.length == 0) {
-            taskcount = -1;
+        if (taskprice.length == 0) {
+            taskprice = -1;
         } else {
-            taskcount = Number(taskcount);
-            let re = /^[1-9]+[0-9]*]*$/
-            if (!re.test(String(taskcount))) {
+            taskprice = Number(taskprice);//字符串转数字
+            let re1 = /^[1-9]+[0-9]*]*$/ //正整数
+            let re2 = /^\+?(\d*\.\d{2})$/ //整数且保留2位小数
+            if (!re1.test(String(taskprice)) && !re2.test(String(taskprice))) {
                 wx.showToast({
-                    title: '次数必须为正整数！',
+                    title: '价格必须为正整数或保留2位小数的正数！',
                     duration: 2000,
                     mask: true,
                     icon: 'none'
@@ -193,9 +179,8 @@ Page({
         var newdata = {
             //desireid: id + 1,
             title: taskname,
-            grade: grade,
-            get: 0,
-            allGet: taskcount
+            score: score,
+            allGet: taskprice
         }
 
         // 添加到数据库
@@ -245,11 +230,20 @@ Page({
         })
     },
 
-    getTaskCount(e) {
+    getTaskPrice(e) {
         var val = e.detail.value
+
+        //按实际人民币价格对应花费积分
+        var score = (val <= 10) ? 1 :
+        (100 >= val && val > 10) ? 2 :
+        (500 >= val && val > 100)? 4 :
+        (1000 >= val && val > 500)? 6 : 8;
+
         this.setData({
-            taskcount: val
+            taskprice: val,
+            score: score
         })
+        //console.log(this.data.taskprice)
     },
 
     findItem(array, id) {
