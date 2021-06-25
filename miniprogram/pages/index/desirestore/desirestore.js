@@ -55,11 +55,8 @@ Page({
                 if (res.confirm) {
                     if (user.money >= price) {
                         desireArray.splice(index, 1);
-                        //console.log(user.money)
-                        //console.log(price)
 
                         user.money -= price
-                        //console.log(user.money)
 
                         self.setData({
                             desireData: desireArray,
@@ -76,7 +73,7 @@ Page({
                             key: item._id,
                             title: item.title,
                             time: new Date().Format('yyyy-MM-dd hh:mm:ss'),
-                            money: self.data.score
+                            money: price
                         }
                         var recordData = wx.getStorageSync('recordData')
                         if (recordData) {
